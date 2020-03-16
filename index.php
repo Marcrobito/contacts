@@ -1,42 +1,20 @@
 <?php
 
-require __DIR__ . "/models/ContactEntity.php";
 require __DIR__ . "/router/Router.php";
+require __DIR__ . "/contracts/ContactContract.php";
+require __DIR__ . "/models/ContactModel.php";
+require __DIR__ . "/presenter/ContactPresenter.php";
 
 $router = new Router();
+$contactModel = new ContactModel();
+$contactPresenter = new ContactPresenter($contactModel);
 
-$router->respond('GET', '/', doSomething);
-$router->respond('POST', '/', doPostNothing);
-$router->respond('GET', '/hola', doNothing);
 
-function doSomething(){
-    echo "somet<br>";
-}
-function doNothing(){
-    echo "<br>";
-}
-function doPostNothing(){
-    echo "lol";
-}
-/*
+//contacts
+$router->respond('GET', '/contact', [$contactPresenter,"getContacts"]);
+$router->respond('POST', '/contact', [$contactPresenter,"setNewContact"]);
 
-viper
-switch ($request) {
-    case '/' :
-        require __DIR__ . '/views/index.php';
-        break;
-    case '' :
-        require __DIR__ . '/views/index.php';
-        break;
-    case '/about' :
-        require __DIR__ . '/views/about.php';
-        break;
-    default:
-        http_response_code(404);
-        require __DIR__ . '/views/404.php';
-        break;
-}
-*/
+
 
 /*
 Create a CRUD (API) where you will register, phone numbers in a phone book, 

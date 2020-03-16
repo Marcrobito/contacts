@@ -18,6 +18,7 @@ class Router{
         return $this->request;
     }
     public function respond($method, $request, $function){
+        //i will need some regex mmm...
         if($method == $this->method && $request == $this->request){
             $function();
         }else{
