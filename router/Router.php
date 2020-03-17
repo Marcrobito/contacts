@@ -37,9 +37,6 @@ class Router{
             }
         }
         if($method == $this->method && $request == $this->request){
-            /*echo "p ".$param."<br>";
-            echo "p ".empty($param)."<br>";
-            echo "p ".is_null($param)."<br>";*/
             if(is_null($param)){
                 $function();
             }else{
@@ -47,7 +44,7 @@ class Router{
             }
             
         }else{
-            //404
+            //TODO 404 handler
             return;
         }
 

@@ -18,6 +18,9 @@ $router->respond('GET',  '/contact/:name', [$contactPresenter,"getContactByIdent
 $router->respond('POST', '/contact', [$contactPresenter,"setNewContact"]);
 
 
+//$router->respond('PUT',  '/contact/:id', [$contactPresenter,""]);
+
+
 
 /*
 Create a CRUD (API) where you will register, phone numbers in a phone book, 
