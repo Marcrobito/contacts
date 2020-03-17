@@ -8,17 +8,24 @@ class ContactPresenter implements iContactPresenter{
         $this->model = $model;
     }
     
-    public function setEndPoint($endPoint)
-    {
+    public function setEndPoint($endPoint){
         $this->endPoint = $endPoint;
     }
 
     public function getContacts(){
-        echo $this->model->fetchContactsByName("");
+        $result = $this->model->fetchContactsByName("");
+        echo json_encode($result);
     }
 
     public function getContactByIdentifier($param){
-        echo $param;
+        if(is_numeric($param)){
+
+        }else if($this->checkEmail($param)){
+
+        }else{
+            $result = $this->model->fetchContactsByName($param);
+            echo json_encode($result); 
+        }
     }
 
     public function setNewContact(){
@@ -26,6 +33,12 @@ class ContactPresenter implements iContactPresenter{
         $data = [ 'success' => $success];
         header('Content-Type: application/json');
         echo json_encode($data);
+    }
+
+    function checkEmail($email) {
+        $find1 = strpos($email, '@');
+        $find2 = strpos($email, '.');
+        return ($find1 !== false && $find2 !== false && $find2 > $find1);
     }
 }
 

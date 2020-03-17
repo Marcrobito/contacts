@@ -16,7 +16,9 @@ class ContactModel implements iContactModel{
     }
 
     public function fetchContactsByName($string){
-        return "Contacts";
+        $query = "SELECT * FROM contacts WHERE name LIKE '%$string%' OR surname LIKE'%$string%'";
+        $result = $this->db->executeQuery($query)->fetchAll();
+        return $result;
     }
 
     public function setNewContact(){
