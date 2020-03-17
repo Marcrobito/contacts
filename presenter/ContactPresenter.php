@@ -17,8 +17,15 @@ class ContactPresenter implements iContactPresenter{
         echo $this->model->fetchContactsByName("");
     }
 
+    public function getContactByIdentifier($param){
+        echo $param;
+    }
+
     public function setNewContact(){
-        $this->model->setNewContact();
+        $success = $this->model->setNewContact();
+        $data = [ 'success' => $success];
+        header('Content-Type: application/json');
+        echo json_encode($data);
     }
 }
 

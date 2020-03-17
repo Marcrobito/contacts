@@ -3,15 +3,18 @@
 require __DIR__ . "/router/Router.php";
 require __DIR__ . "/contracts/ContactContract.php";
 require __DIR__ . "/models/ContactModel.php";
+require __DIR__ . "/models/Database.php";
 require __DIR__ . "/presenter/ContactPresenter.php";
 
 $router = new Router();
-$contactModel = new ContactModel();
+$db = new Database();
+$contactModel = new ContactModel($db);
 $contactPresenter = new ContactPresenter($contactModel);
 
 
 //contacts
-$router->respond('GET', '/contact', [$contactPresenter,"getContacts"]);
+$router->respond('GET',  '/contact', [$contactPresenter,"getContacts"]);
+$router->respond('GET',  '/contact/:name', [$contactPresenter,"getContactByIdentifier"]);
 $router->respond('POST', '/contact', [$contactPresenter,"setNewContact"]);
 
 
@@ -50,7 +53,6 @@ create a new email
 create a new phone and email
 
 read contacts
-read contact intellisense
 read contact phone
 read contact emails
 filters
