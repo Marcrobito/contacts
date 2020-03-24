@@ -20,7 +20,9 @@ class ContactPresenter implements iContactPresenter{
     public function getContactByIdentifier($param){
         if(is_numeric($param)){
 
-        }else if($this->checkEmail($param)){
+        }else if(strpos( $param, '+')){
+
+        }else if(filter_var($param, FILTER_VALIDATE_EMAIL)){
 
         }else{
             $result = $this->model->fetchContactsByName($param);
@@ -28,9 +30,72 @@ class ContactPresenter implements iContactPresenter{
         }
     }
 
+    public function addNewPhoneAndEmail($id){
+        $email = isset($_POST['email'])?explode("|",$_POST['email']):[];
+        $phone = isset($_POST['phone'])?explode("|",$_POST['phone']):[];
+        if(sizeof($phone) > 0){
+            foreach ($phone as &$number) {
+                $this->model->insertPhone($number, $id);
+            }
+        } 
+
+        if(sizeof($email) > 0){
+            foreach ($email as &$mail) {
+                $this->model->insertEmail($mail, $id);
+            }
+        } 
+
+        //TODO handler errors
+        $data = [ 'success' => $success];
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
     public function setNewContact(){
         $success = $this->model->setNewContact();
         $data = [ 'success' => $success];
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    function updateEmail($id){
+        $this->model->updateEmail($id);
+        $data = [ 'success' => true];
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    function updatePhone($id){
+        $this->model->updatePhone($id);
+        $data = [ 'success' => true];
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    function updateContact($id){
+        $this->model->updateContact($id);
+        $data = [ 'success' => true];
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    function deleteEmail($id){
+        $this->model->deleteEmail($id);
+        $data = [ 'success' => true];
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    function deletePhone($id){
+        $this->model->deletePhone($id);
+        $data = [ 'success' => true];
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    function deleteContact($id){
+        $this->model->deleteContact($id);
+        $data = [ 'success' => true];
         header('Content-Type: application/json');
         echo json_encode($data);
     }

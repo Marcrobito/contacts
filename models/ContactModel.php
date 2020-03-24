@@ -12,11 +12,14 @@ class ContactModel implements iContactModel{
 
     public function setPresenter($presenter)
     {
+        //TODO this is not use
         $this->presenter = $presenter;
     }
 
     public function fetchContactsByName($string){
         $query = "SELECT * FROM contacts WHERE name LIKE '%$string%' OR surname LIKE'%$string%'";
+        /*$query = "SELECT c.name, c.surname, c.photo FROM contacts c WHERE name LIKE 
+        '%$string%' OR surname LIKE'%$string%'";*/
         $result = $this->db->executeQuery($query)->fetchAll();
         return $result;
     }
