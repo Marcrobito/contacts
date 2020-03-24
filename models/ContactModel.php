@@ -91,7 +91,60 @@ class ContactModel implements iContactModel{
 			$randomString .= $characters[rand(0, $charactersLength - 1)];
 		}
 		return $randomString;
-	}
+    }
+    
+    function updateEmail($id){
+        if (isset($_POST['email'])){
+            $email = $_POST['email'];
+            $query = "UPDATE  email SET email = $email WHERE id=".$id;
+            $result =  $this->db->executeQuery($query);
+        }
+    }
+
+    function updatePhone($id){
+        if (isset($_POST['number'])){
+            $number = $_POST['number'];
+            $query = "UPDATE  phone SET number = $number WHERE id=".$id;
+            $result =  $this->db->executeQuery($query);
+        }
+    }
+
+    function updateContact($id){
+        if (isset($_POST['name'])){
+            $name = $_POST['number'];
+            $query = "UPDATE  contact SET name = $name WHERE id=".$id;
+            $result =  $this->db->executeQuery($query);
+        }
+        if (isset($_POST['surname'])){
+            $surname = $_POST['number'];
+            $query = "UPDATE  contact SET surname = $surname WHERE id=".$id;
+            $result =  $this->db->executeQuery($query);
+        }
+
+        
+    }
+
+    function deleteEmail($id){
+        $query = "DELETE FROM email WHERE id=".$id;
+        $result =  $this->db->executeQuery($query);
+    }
+
+    function deletePhone($id){
+        $query = "DELETE FROM phone WHERE id=".$id;
+        $result =  $this->db->executeQuery($query);
+    }
+
+    function deleteContact($id){
+        $query = "DELETE FROM contact WHERE id=".$id;
+        $result =  $this->db->executeQuery($query);
+    }
+
+    function dumpDB(){
+        $queries = ["TRUNCATE TABLE contacts", "TRUNCATE TABLE phone","TRUNCATE TABLE email"];
+        foreach($queries as $query){
+            $result =  $this->db->executeQuery($query);
+        }
+    }
 
 }
 

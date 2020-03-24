@@ -27,5 +27,7 @@ $router->respond('DELETE', '/contact/:id', [$contactPresenter,"deleteContact"]);
 $router->respond('DELETE', '/phone/:id', [$contactPresenter,"deletePhone"]);
 $router->respond('DELETE', '/email/:id', [$contactPresenter,"deleteEmail"]);
 
+$router->respond('GET', '/dump_db', [$contactPresenter,"dumpDB"]);
+
 
 ?>

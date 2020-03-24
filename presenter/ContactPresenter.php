@@ -100,6 +100,13 @@ class ContactPresenter implements iContactPresenter{
         echo json_encode($data);
     }
 
+    function dumpDB(){
+        $this->model->dumpDB();
+        $data = [ 'success' => true];
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
     function checkEmail($email) {
         $find1 = strpos($email, '@');
         $find2 = strpos($email, '.');
